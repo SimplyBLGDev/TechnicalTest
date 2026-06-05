@@ -4,6 +4,7 @@
 [ext_resource type="Resource" uid="uid://uvxa1mmda8o5" path="res://input/player/input_player.tres" id="2_ueusv"]
 [ext_resource type="TileSet" uid="uid://cqb8cd14pwcl1" path="res://overworld/overworld_tileset.tres" id="3_ktb3l"]
 [ext_resource type="PackedScene" uid="uid://mjxvegmpqvs5" path="res://player_warrior.tscn" id="4_ktb3l"]
+[ext_resource type="PackedScene" uid="uid://bxl30b7s31vi3" path="res://enemy_warrior.tscn" id="5_gvicd"]
 
 [node name="Gameplay" type="Node2D" unique_id=104695684]
 script = ExtResource("1_41n4r")
@@ -37,3 +38,26 @@ bbcode_enabled = true
 text = "WASD - Move
 "
 fit_content = true
+
+[node name="EnemyWarrior" parent="." unique_id=1652543362 instance=ExtResource("5_gvicd")]
+position = Vector2(121, -287)
+
+[node name="PatrolPoints" type="Node2D" parent="." unique_id=201766196]
+
+[node name="PatrolPoint1" type="Node2D" parent="PatrolPoints" unique_id=785660118 groups=["PatrolPoint"]]
+position = Vector2(118, -249)
+
+[node name="PatrolPoint2" type="Node2D" parent="PatrolPoints" unique_id=788661685 groups=["PatrolPoint"]]
+position = Vector2(398, -246)
+
+[node name="PatrolPoint3" type="Node2D" parent="PatrolPoints" unique_id=1178049659 groups=["PatrolPoint"]]
+position = Vector2(413, -44)
+
+[node name="PatrolPoint4" type="Node2D" parent="PatrolPoints" unique_id=1803620029 groups=["PatrolPoint"]]
+position = Vector2(501, -193)
+
+[node name="PatrolPoint5" type="Node2D" parent="PatrolPoints" unique_id=1568789251 groups=["PatrolPoint"]]
+position = Vector2(483, 254)
+
+[node name="PatrolPoint6" type="Node2D" parent="PatrolPoints" unique_id=234746457 groups=["PatrolPoint"]]
+position = Vector2(25, 175)

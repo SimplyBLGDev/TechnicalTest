@@ -1,7 +1,63 @@
 [gd_scene format=3 uid="uid://bxl30b7s31vi3"]
 
 [ext_resource type="PackedScene" uid="uid://dlc77i0y6r38s" path="res://warrior/warrior.tscn" id="1_fl5u3"]
+[ext_resource type="Script" uid="uid://d21s65pft88pl" path="res://character/controller/character_controller_patrol.gd" id="2_jr6dt"]
+[ext_resource type="Script" uid="uid://cfivj2p8cdckx" path="res://ai/tasks/determine_next_patrol_point.gd" id="3_4vdbv"]
+[ext_resource type="Script" uid="uid://cgt6wppa4p4sw" path="res://ai/tasks/move_to_target.gd" id="3_w7m3i"]
 
-[node name="EnemyWarrior" unique_id=1514386675 instance=ExtResource("1_fl5u3")]
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_fl5u3"]
+var/controller/name = &"controller"
+var/controller/type = 22
+var/controller/value = NodePath("AIController")
+var/controller/hint = 0
+var/controller/hint_string = ""
+var/patrol_next_position/name = &"patrol_next_position"
+var/patrol_next_position/type = 5
+var/patrol_next_position/value = Vector2(0, 0)
+var/patrol_next_position/hint = 0
+var/patrol_next_position/hint_string = ""
 
-[node name="AIController" type="Node" parent="." index="5" unique_id=1139477549]
+[sub_resource type="BTWait" id="BTWait_w7m3i"]
+duration = 2.0
+
+[sub_resource type="BTAction" id="BTAction_6ox01"]
+script = ExtResource("3_4vdbv")
+
+[sub_resource type="BTAction" id="BTAction_4vdbv"]
+script = ExtResource("3_w7m3i")
+distance_tolerance_squared = null
+
+[sub_resource type="BTSequence" id="BTSequence_4vdbv"]
+custom_name = "Wait"
+children = [SubResource("BTWait_w7m3i"), SubResource("BTAction_6ox01"), SubResource("BTAction_4vdbv")]
+
+[sub_resource type="BTRepeat" id="BTRepeat_0a2dn"]
+forever = true
+custom_name = "Patrol"
+children = [SubResource("BTSequence_4vdbv")]
+
+[sub_resource type="BehaviorTree" id="BehaviorTree_jr6dt"]
+blackboard_plan = SubResource("BlackboardPlan_fl5u3")
+root_task = SubResource("BTRepeat_0a2dn")
+
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_w7m3i"]
+
+[node name="EnemyWarrior" unique_id=1514386675 node_paths=PackedStringArray("controller") instance=ExtResource("1_fl5u3")]
+controller = NodePath("AIController")
+
+[node name="HUD" parent="." index="3" unique_id=895569590]
+metadata/_edit_use_anchors_ = true
+
+[node name="AIController" type="Node" parent="." index="5" unique_id=1139477549 node_paths=PackedStringArray("navigation_agent")]
+script = ExtResource("2_jr6dt")
+navigation_agent = NodePath("../NavigationAgent")
+
+[node name="BTPlayer" type="BTPlayer" parent="AIController" index="0" unique_id=1559410068]
+behavior_tree = SubResource("BehaviorTree_jr6dt")
+agent_node = NodePath("../..")
+blackboard_plan = SubResource("BlackboardPlan_w7m3i")
+
+[node name="NavigationAgent" type="NavigationAgent2D" parent="." index="8" unique_id=203356233]
+path_postprocessing = 1
+debug_enabled = true
+debug_path_custom_color = Color(1, 0, 0, 1)

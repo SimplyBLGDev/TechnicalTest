@@ -236,16 +236,18 @@ hud = NodePath("HUD")
 
 [node name="Sprite" type="Sprite2D" parent="." unique_id=1034655602]
 material = SubResource("ShaderMaterial_65viv")
+position = Vector2(0, -32)
 texture = ExtResource("1_oul6g")
 hframes = 8
 script = ExtResource("4_65viv")
 
 [node name="Collider" type="CollisionShape2D" parent="." unique_id=618414832]
-position = Vector2(0, 20)
+position = Vector2(0, -12)
 rotation = 1.5707964
 shape = SubResource("CapsuleShape2D_kb6p2")
 
 [node name="Hurtbox" type="Area2D" parent="." unique_id=1774453969]
+position = Vector2(0, -32)
 script = ExtResource("3_wodsf")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" unique_id=1419707864]
@@ -261,9 +263,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -50.0
-offset_top = -50.0
+offset_top = -82.0
 offset_right = 50.0
-offset_bottom = 70.0
+offset_bottom = 38.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("17_tqiix")
@@ -331,5 +333,4 @@ metadata/_custom_type_script = "uid://dbimx53lu66ks"
 libraries/ = SubResource("AnimationLibrary_g1dw6")
 autoplay = &"idle"
 
-[connection signal="got_hit" from="Hurtbox" to="." method="_on_hurtbox_got_hit"]
 [connection signal="health_depleted" from="HealthComponent" to="." method="_on_health_component_health_depleted"]

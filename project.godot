@@ -33,6 +33,7 @@ enabled=PackedStringArray("res://addons/guide/plugin.cfg")
 
 folder_colors={
 "res://addons/": "purple",
+"res://ai/": "purple",
 "res://input/": "yellow"
 }
 
