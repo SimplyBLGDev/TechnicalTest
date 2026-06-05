@@ -39,3 +39,11 @@ func _on_hurtbox_got_hit(damage: int) -> void:
 func _on_health_component_health_depleted() -> void:
 	state_machine.change_state_name(Character_State.DEAD)
 	died.emit()
+
+
+func _on_vision_cone_body_entered(character: Node2D) -> void:
+	print("enter")
+
+
+func _on_vision_cone_body_exited(body: Node2D) -> void:
+	print("exit")

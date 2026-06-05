@@ -1,9 +1,17 @@
 [gd_scene format=3 uid="uid://bxl30b7s31vi3"]
 
 [ext_resource type="PackedScene" uid="uid://dlc77i0y6r38s" path="res://warrior/warrior.tscn" id="1_fl5u3"]
+[ext_resource type="Shader" uid="uid://bgc7ki2mbmwfw" path="res://character/sprite/character_sprite.gdshader" id="2_0a2dn"]
 [ext_resource type="Script" uid="uid://d21s65pft88pl" path="res://character/controller/character_controller_patrol.gd" id="2_jr6dt"]
 [ext_resource type="Script" uid="uid://cfivj2p8cdckx" path="res://ai/tasks/determine_next_patrol_point.gd" id="3_4vdbv"]
 [ext_resource type="Script" uid="uid://cgt6wppa4p4sw" path="res://ai/tasks/move_to_target.gd" id="3_w7m3i"]
+[ext_resource type="PackedScene" uid="uid://lei5ddnpfl0b" path="res://vision_cone/vision_cone.tscn" id="6_hnt48"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0a2dn"]
+resource_local_to_scene = true
+shader = ExtResource("2_0a2dn")
+shader_parameter/over_exposition_color = Color(1, 1, 1, 1)
+shader_parameter/over_exposition = 0.0
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_fl5u3"]
 var/controller/name = &"controller"
@@ -16,34 +24,56 @@ var/patrol_next_position/type = 5
 var/patrol_next_position/value = Vector2(0, 0)
 var/patrol_next_position/hint = 0
 var/patrol_next_position/hint_string = ""
+var/detected_enemy/name = &"detected_enemy"
+var/detected_enemy/type = 24
+var/detected_enemy/hint = 0
+var/detected_enemy/hint_string = ""
+
+[sub_resource type="BTSequence" id="BTSequence_hnt48"]
+custom_name = "GetCloser"
+
+[sub_resource type="BTSequence" id="BTSequence_gto8y"]
+custom_name = "AttackPlayer"
+children = [SubResource("BTSequence_hnt48")]
 
 [sub_resource type="BTWait" id="BTWait_w7m3i"]
-duration = 2.0
+duration = 5.0
+
+[sub_resource type="BTSequence" id="BTSequence_4vdbv"]
+custom_name = "Wait"
+children = [SubResource("BTWait_w7m3i")]
 
 [sub_resource type="BTAction" id="BTAction_6ox01"]
 script = ExtResource("3_4vdbv")
 
 [sub_resource type="BTAction" id="BTAction_4vdbv"]
 script = ExtResource("3_w7m3i")
-distance_tolerance_squared = null
 
-[sub_resource type="BTSequence" id="BTSequence_4vdbv"]
-custom_name = "Wait"
-children = [SubResource("BTWait_w7m3i"), SubResource("BTAction_6ox01"), SubResource("BTAction_4vdbv")]
+[sub_resource type="BTSequence" id="BTSequence_6ox01"]
+custom_name = "Move to patrol point"
+children = [SubResource("BTAction_6ox01"), SubResource("BTAction_4vdbv")]
 
-[sub_resource type="BTRepeat" id="BTRepeat_0a2dn"]
-forever = true
+[sub_resource type="BTSequence" id="BTSequence_0a2dn"]
 custom_name = "Patrol"
-children = [SubResource("BTSequence_4vdbv")]
+children = [SubResource("BTSequence_4vdbv"), SubResource("BTSequence_6ox01")]
+
+[sub_resource type="BTSelector" id="BTSelector_4vdbv"]
+children = [SubResource("BTSequence_gto8y"), SubResource("BTSequence_0a2dn")]
 
 [sub_resource type="BehaviorTree" id="BehaviorTree_jr6dt"]
 blackboard_plan = SubResource("BlackboardPlan_fl5u3")
-root_task = SubResource("BTRepeat_0a2dn")
+root_task = SubResource("BTSelector_4vdbv")
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_w7m3i"]
 
 [node name="EnemyWarrior" unique_id=1514386675 node_paths=PackedStringArray("controller") instance=ExtResource("1_fl5u3")]
 controller = NodePath("AIController")
+
+[node name="Sprite" parent="." index="0" unique_id=1034655602]
+material = SubResource("ShaderMaterial_0a2dn")
+
+[node name="Hurtbox" parent="." index="2" unique_id=1774453969]
+monitorable = false
 
 [node name="HUD" parent="." index="3" unique_id=895569590]
 metadata/_edit_use_anchors_ = true
@@ -52,12 +82,17 @@ metadata/_edit_use_anchors_ = true
 script = ExtResource("2_jr6dt")
 navigation_agent = NodePath("../NavigationAgent")
 
-[node name="BTPlayer" type="BTPlayer" parent="AIController" index="0" unique_id=1559410068]
+[node name="AI" type="BTPlayer" parent="AIController" index="0" unique_id=1559410068]
 behavior_tree = SubResource("BehaviorTree_jr6dt")
 agent_node = NodePath("../..")
 blackboard_plan = SubResource("BlackboardPlan_w7m3i")
 
 [node name="NavigationAgent" type="NavigationAgent2D" parent="." index="8" unique_id=203356233]
 path_postprocessing = 1
-debug_enabled = true
-debug_path_custom_color = Color(1, 0, 0, 1)
+
+[node name="VisionCone" parent="." index="9" unique_id=2045867497 instance=ExtResource("6_hnt48")]
+position = Vector2(0, -39)
+
+[connection signal="got_hit" from="Hurtbox" to="." method="_on_hurtbox_got_hit"]
+[connection signal="body_entered" from="VisionCone" to="." method="_on_vision_cone_body_entered"]
+[connection signal="body_exited" from="VisionCone" to="." method="_on_vision_cone_body_exited"]

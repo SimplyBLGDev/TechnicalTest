@@ -9,6 +9,7 @@ size = Vector2(50, 88)
 size = Vector2(75, 27)
 
 [node name="Hitbox" type="Area2D" unique_id=1711331082]
+monitoring = false
 script = ExtResource("1_gsbl8")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1946731250]

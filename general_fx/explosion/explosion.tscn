@@ -58,6 +58,7 @@ _data = {
 script = ExtResource("1_mxyan")
 
 [node name="Sprite" type="Sprite2D" parent="." unique_id=152074131]
+position = Vector2(0, -50)
 texture = ExtResource("1_13deu")
 hframes = 10
 

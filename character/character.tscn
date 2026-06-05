@@ -27,6 +27,7 @@ knockback_speed = 350.0
 metadata/_custom_type_script = "uid://cwoudl25gvwbo"
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_65viv"]
+resource_local_to_scene = true
 shader = ExtResource("3_x7c3f")
 shader_parameter/over_exposition_color = Color(1, 1, 1, 1)
 shader_parameter/over_exposition = 0.0

@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://lei5ddnpfl0b"]
+
+[ext_resource type="Script" uid="uid://c0rj4xm7josuv" path="res://vision_cone/vision_cone.gd" id="1_d7g5y"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_6ox01"]
+radius = 300.0
+
+[node name="VisionCone" type="Node2D" unique_id=2045867497 node_paths=PackedStringArray("area")]
+script = ExtResource("1_d7g5y")
+color = Color(0.48235294, 0.6509804, 1, 0.48235294)
+border_color = Color(0.2, 0.42745098, 1, 0.56078434)
+outer_rim_distance = 300.0
+area = NodePath("Area")
+
+[node name="Area" type="Area2D" parent="." unique_id=404784796]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area" unique_id=214736122]
+shape = SubResource("CircleShape2D_6ox01")
