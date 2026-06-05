@@ -1,4 +1,4 @@
-class_name Player_State
+class_name Character_State
 extends StateMachine_State
 
 #region State name constants

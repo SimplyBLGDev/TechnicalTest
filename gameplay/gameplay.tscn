@@ -1,7 +1,7 @@
 [gd_scene format=4 uid="uid://wjx2dxf184t7"]
 
 [ext_resource type="Script" uid="uid://bvtvws7rymnum" path="res://gameplay/gameplay.gd" id="1_41n4r"]
-[ext_resource type="PackedScene" uid="uid://dh0ovhh722xeo" path="res://player/player.tscn" id="1_nyvx4"]
+[ext_resource type="PackedScene" uid="uid://dh0ovhh722xeo" path="res://player/character.tscn" id="1_nyvx4"]
 [ext_resource type="Resource" uid="uid://uvxa1mmda8o5" path="res://input/player/input_player.tres" id="2_ueusv"]
 [ext_resource type="TileSet" uid="uid://cqb8cd14pwcl1" path="res://overworld/overworld_tileset.tres" id="3_ktb3l"]
 

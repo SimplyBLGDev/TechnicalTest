@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bngas2w8ainca"
-path="res://.godot/imported/player_idle.png-5275f7b3088ca075b2e7b12d754333b2.ctex"
+uid="uid://cid88gyfl43r7"
+path="res://.godot/imported/warrior_attack.png-e7f182b0195db0a413b4f889d2cf799c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://player/player_idle.png"
-dest_files=["res://.godot/imported/player_idle.png-5275f7b3088ca075b2e7b12d754333b2.ctex"]
+source_file="res://warrior/warrior_attack.png"
+dest_files=["res://.godot/imported/warrior_attack.png-e7f182b0195db0a413b4f889d2cf799c.ctex"]
 
 [params]
 

@@ -1,4 +1,4 @@
-extends Player_State
+extends Character_State
 
 @export var animation := &"attack"
 

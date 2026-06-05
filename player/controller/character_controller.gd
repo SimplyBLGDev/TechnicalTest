@@ -1,5 +1,5 @@
 @abstract
-class_name Player_Controller
+class_name Character_Controller
 extends Node
 
 signal attacked

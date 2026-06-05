@@ -1,4 +1,4 @@
-extends Player_Controller
+extends Character_Controller
 
 @export_group("Inputs")
 @export var _movement: GUIDEAction
