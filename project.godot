@@ -11,5 +11,30 @@ config_version=5
 [application]
 
 config/name="TechnicalTest"
+run/main_scene="uid://wjx2dxf184t7"
 config/features=PackedStringArray("4.6")
 config/icon="res://icon.svg"
+
+[autoload]
+
+GUIDE="*uid://p2jwrgjcbexr"
+
+[display]
+
+window/size/viewport_width=1280
+window/size/viewport_height=720
+window/stretch/mode="canvas_items"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/guide/plugin.cfg")
+
+[file_customization]
+
+folder_colors={
+"res://input/": "yellow"
+}
+
+[rendering]
+
+textures/canvas_textures/default_texture_filter=0
