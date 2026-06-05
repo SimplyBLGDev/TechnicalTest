@@ -3,7 +3,6 @@
 [ext_resource type="Texture2D" uid="uid://bngas2w8ainca" path="res://warrior/warrior_idle.png" id="1_oul6g"]
 [ext_resource type="Script" uid="uid://c3he1nfro2xxl" path="res://character/character.gd" id="1_yw30f"]
 [ext_resource type="Script" uid="uid://cwoudl25gvwbo" path="res://character/character_parameters.gd" id="2_boad6"]
-[ext_resource type="Script" uid="uid://bkbm5c670hv3q" path="res://character/controller/character_controller_human.gd" id="3_g6k8r"]
 [ext_resource type="Script" uid="uid://ci7uahi2nshkm" path="res://utils/state_machine/state_machine.gd" id="3_qjkh3"]
 [ext_resource type="Script" uid="uid://jsmutbl7yg7j" path="res://hurtbox/hurtbox.gd" id="3_wodsf"]
 [ext_resource type="Shader" uid="uid://bgc7ki2mbmwfw" path="res://character/sprite/character_sprite.gdshader" id="3_x7c3f"]
@@ -11,13 +10,12 @@
 [ext_resource type="Script" uid="uid://ddh2tlmjv4u0h" path="res://character/sprite/character_sprite.gd" id="4_65viv"]
 [ext_resource type="Texture2D" uid="uid://cid88gyfl43r7" path="res://warrior/warrior_attack.png" id="4_yllr7"]
 [ext_resource type="Script" uid="uid://ba2g05slj81w1" path="res://character/state/character_state_idle.gd" id="4_yw30f"]
-[ext_resource type="Resource" uid="uid://c3xlx72fyk5pk" path="res://input/player/input_player_movement.tres" id="5_hg6s5"]
 [ext_resource type="PackedScene" uid="uid://qjwnk8c7mu1c" path="res://warrior/warrior_attack_hitbox.tscn" id="5_kb6p2"]
 [ext_resource type="Script" uid="uid://blsxfabk1wnm4" path="res://character/state/character_state_walk.gd" id="5_qjkh3"]
-[ext_resource type="Resource" uid="uid://bbpknpif577rb" path="res://input/player/input_player_attack.tres" id="6_8t03j"]
 [ext_resource type="Script" uid="uid://be0wnrqjj6mnn" path="res://health_component/health_component.gd" id="8_32hag"]
 [ext_resource type="Script" uid="uid://c3trdgujuu7lc" path="res://utils/state_machine/transition/state_machine_transition_condition.gd" id="10_2ieo8"]
 [ext_resource type="Script" uid="uid://mrogamhe3blm" path="res://character/state/character_state_attack.gd" id="12_ebec5"]
+[ext_resource type="Script" uid="uid://0qm2sawtoa32" path="res://character/state/character_state_dead.gd" id="16_6610h"]
 [ext_resource type="Theme" uid="uid://bmcka1fa4fbn7" path="res://character/hud/character_hud_theme.tres" id="17_tqiix"]
 [ext_resource type="Script" uid="uid://ydwe17vlvomp" path="res://character/hud/character_hud.gd" id="18_e7oew"]
 [ext_resource type="Script" uid="uid://jvpiluw1t6r4" path="res://character/state/character_state_hurt.gd" id="19_c35mf"]
@@ -226,15 +224,15 @@ _data = {
 &"walk": SubResource("Animation_2ieo8")
 }
 
-[node name="Player" type="CharacterBody2D" unique_id=1514386675 node_paths=PackedStringArray("controller", "state_machine", "sprite", "animation_player", "health_component")]
+[node name="Character" type="CharacterBody2D" unique_id=1514386675 node_paths=PackedStringArray("state_machine", "sprite", "animation_player", "health_component", "hud")]
 floor_max_angle = 0.87266463
 script = ExtResource("1_yw30f")
 parameters = SubResource("Resource_rgyib")
-controller = NodePath("HumanController")
 state_machine = NodePath("StateMachine")
 sprite = NodePath("Sprite")
 animation_player = NodePath("AnimationPlayer")
 health_component = NodePath("HealthComponent")
+hud = NodePath("HUD")
 
 [node name="Sprite" type="Sprite2D" parent="." unique_id=1034655602]
 material = SubResource("ShaderMaterial_65viv")
@@ -254,10 +252,6 @@ script = ExtResource("3_wodsf")
 position = Vector2(0, 0.5)
 shape = SubResource("RectangleShape2D_wodsf")
 debug_color = Color(2.5990605e-06, 0.6428128, 0.31664625, 0.41960785)
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1041808649]
-libraries/ = SubResource("AnimationLibrary_g1dw6")
-autoplay = &"idle"
 
 [node name="HUD" type="Control" parent="." unique_id=895569590 node_paths=PackedStringArray("health_component", "health_bar")]
 layout_mode = 3
@@ -294,11 +288,6 @@ show_percentage = false
 [node name="HealthComponent" type="Node" parent="." unique_id=842675306]
 script = ExtResource("8_32hag")
 
-[node name="HumanController" type="Node" parent="." unique_id=1341065814]
-script = ExtResource("3_g6k8r")
-_movement = ExtResource("5_hg6s5")
-_attack = ExtResource("6_8t03j")
-
 [node name="StateMachine" type="Node" parent="." unique_id=921758115 node_paths=PackedStringArray("current_state")]
 script = ExtResource("3_qjkh3")
 current_state = NodePath("Idle")
@@ -332,7 +321,15 @@ metadata/_custom_type_script = "uid://dbimx53lu66ks"
 
 [node name="Hurt" type="Node" parent="StateMachine" unique_id=647392637]
 script = ExtResource("19_c35mf")
-allow_self_transition = null
 metadata/_custom_type_script = "uid://dbimx53lu66ks"
 
+[node name="Dead" type="Node" parent="StateMachine" unique_id=2004588430]
+script = ExtResource("16_6610h")
+metadata/_custom_type_script = "uid://dbimx53lu66ks"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1041808649]
+libraries/ = SubResource("AnimationLibrary_g1dw6")
+autoplay = &"idle"
+
 [connection signal="got_hit" from="Hurtbox" to="." method="_on_hurtbox_got_hit"]
+[connection signal="health_depleted" from="HealthComponent" to="." method="_on_health_component_health_depleted"]

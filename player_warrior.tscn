@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://mjxvegmpqvs5"]
+
+[ext_resource type="PackedScene" uid="uid://dlc77i0y6r38s" path="res://warrior/warrior.tscn" id="1_82fyr"]
+[ext_resource type="Script" uid="uid://bkbm5c670hv3q" path="res://character/controller/character_controller_human.gd" id="2_tc6dn"]
+[ext_resource type="Resource" uid="uid://c3xlx72fyk5pk" path="res://input/player/input_player_movement.tres" id="3_stxdn"]
+[ext_resource type="Resource" uid="uid://bbpknpif577rb" path="res://input/player/input_player_attack.tres" id="4_j2xuk"]
+
+[node name="PlayerWarrior" unique_id=1514386675 node_paths=PackedStringArray("controller") instance=ExtResource("1_82fyr")]
+controller = NodePath("HumanController")
+
+[node name="HumanController" type="Node" parent="." index="5" unique_id=1425969201]
+script = ExtResource("2_tc6dn")
+_movement = ExtResource("3_stxdn")
+_attack = ExtResource("4_j2xuk")

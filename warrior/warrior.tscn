@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://dlc77i0y6r38s"]
+
+[ext_resource type="PackedScene" uid="uid://dh0ovhh722xeo" path="res://character/character.tscn" id="1_n7tfg"]
+
+[node name="Warrior" unique_id=1514386675 instance=ExtResource("1_n7tfg")]
+
+[node name="To Walk" parent="StateMachine/Idle" parent_id_path=PackedInt32Array(37226254) index="0" unique_id=1812285304]
+condition = "character.controller.move_direction.length_squared() > 0.01"
+
+[node name="To Idle" parent="StateMachine/Walk" parent_id_path=PackedInt32Array(1950900826) index="0" unique_id=1427194526]
+condition = "character.controller.move_direction.length_squared() == 0.0"

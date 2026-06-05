@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://bxl30b7s31vi3"]
+
+[ext_resource type="PackedScene" uid="uid://dlc77i0y6r38s" path="res://warrior/warrior.tscn" id="1_fl5u3"]
+
+[node name="EnemyWarrior" unique_id=1514386675 instance=ExtResource("1_fl5u3")]
+
+[node name="AIController" type="Node" parent="." index="5" unique_id=1139477549]

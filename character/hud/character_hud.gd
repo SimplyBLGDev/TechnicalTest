@@ -1,4 +1,4 @@
-class_name Player_HUD
+class_name Character_HUD
 extends Control
 
 @export var health_component: HealthComponent

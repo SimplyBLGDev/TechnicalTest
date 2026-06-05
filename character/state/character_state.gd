@@ -9,7 +9,7 @@ const HURT := "Hurt"
 const DEAD := "Dead"
 #endregion
 
-var player: Player
+var character: Character
 
 func _ready():
-	player = Utils.find_ancestor_of_type(self, Player)
+	character = Utils.find_ancestor_of_type(self, Character)

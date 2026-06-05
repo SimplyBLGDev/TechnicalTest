@@ -1,5 +1,7 @@
-class_name Player
+class_name Character
 extends CharacterBody2D
+
+signal died
 
 @export var parameters: Character_Parameters
 
@@ -9,6 +11,7 @@ extends CharacterBody2D
 @export var sprite: Character_Sprite
 @export var animation_player: AnimationPlayer
 @export var health_component: HealthComponent
+@export var hud: Character_HUD
 
 var facing_left:
 	set(value):
@@ -31,3 +34,8 @@ func _on_hurtbox_got_hit(damage: int) -> void:
 	health_component.receive_damage(damage)
 	var hurt_state: Character_State_Hurt = state_machine.get_state(Character_State.HURT)
 	state_machine.change_state(hurt_state)
+
+
+func _on_health_component_health_depleted() -> void:
+	state_machine.change_state_name(Character_State.DEAD)
+	died.emit()
