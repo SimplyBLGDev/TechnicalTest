@@ -16,6 +16,7 @@ signal died
 @export var hurtbox: Hurtbox
 @export var hud: Character_HUD
 @export var head_position: Node2D
+@export var dust_emitter: DustEmitter
 
 var facing_left:
 	set(value):
@@ -36,7 +37,7 @@ func spawn_hitbox(hitbox_scene: PackedScene, duration: float):
 	instance.queue_free()
 
 
-func _on_hurtbox_got_hit(damage: int, hit_position: Vector2) -> void:
+func _on_hurtbox_got_hit(damage: int, hit_position: Vector2, _hurt_by: Hitbox) -> void:
 	var hurt_state: Character_State_Hurt = state_machine.get_state(Character_State.HURT)
 	hurt_state.hit_position = hit_position
 	hurt_state.damage = damage

@@ -76,6 +76,6 @@ theme_override_constants/margin_bottom = 8
 layout_mode = 2
 bbcode_enabled = true
 text = "[color=black]WASD - Move
-Space - Attack[/color]
-R - Restart"
+Space - Attack
+R - Restart[/color]"
 fit_content = true

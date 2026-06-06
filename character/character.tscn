@@ -12,6 +12,7 @@
 [ext_resource type="Script" uid="uid://ba2g05slj81w1" path="res://character/state/character_state_idle.gd" id="4_yw30f"]
 [ext_resource type="PackedScene" uid="uid://qjwnk8c7mu1c" path="res://warrior/warrior_attack_hitbox.tscn" id="5_kb6p2"]
 [ext_resource type="Script" uid="uid://blsxfabk1wnm4" path="res://character/state/character_state_walk.gd" id="5_qjkh3"]
+[ext_resource type="Script" uid="uid://qmxjneyx6sml" path="res://dust_emitter/dust_emitter.gd" id="7_wlm6a"]
 [ext_resource type="Script" uid="uid://be0wnrqjj6mnn" path="res://health_component/health_component.gd" id="8_32hag"]
 [ext_resource type="Script" uid="uid://c3trdgujuu7lc" path="res://utils/state_machine/transition/state_machine_transition_condition.gd" id="10_2ieo8"]
 [ext_resource type="Script" uid="uid://mrogamhe3blm" path="res://character/state/character_state_attack.gd" id="12_ebec5"]
@@ -281,7 +282,8 @@ _data = {
 &"walk": SubResource("Animation_2ieo8")
 }
 
-[node name="Character" type="CharacterBody2D" unique_id=1514386675 node_paths=PackedStringArray("state_machine", "sprite", "animation_player", "health_component", "hurtbox", "hud", "head_position")]
+[node name="Character" type="CharacterBody2D" unique_id=1514386675 node_paths=PackedStringArray("state_machine", "sprite", "animation_player", "health_component", "hurtbox", "hud", "head_position", "dust_emitter")]
+z_index = 1
 motion_mode = 1
 floor_max_angle = 0.87266463
 script = ExtResource("1_yw30f")
@@ -293,6 +295,7 @@ health_component = NodePath("HealthComponent")
 hurtbox = NodePath("Hurtbox")
 hud = NodePath("HUD")
 head_position = NodePath("HeadPosition")
+dust_emitter = NodePath("DustEmitter")
 
 [node name="HeadPosition" type="Marker2D" parent="." unique_id=2139235422]
 position = Vector2(0, -42)
@@ -317,6 +320,10 @@ script = ExtResource("3_wodsf")
 position = Vector2(0, 0.5)
 shape = SubResource("RectangleShape2D_wodsf")
 debug_color = Color(2.5990605e-06, 0.6428128, 0.31664625, 0.41960785)
+
+[node name="DustEmitter" type="Node2D" parent="." unique_id=1338608504]
+script = ExtResource("7_wlm6a")
+period = 0.2
 
 [node name="HUD" type="Control" parent="." unique_id=895569590 node_paths=PackedStringArray("health_component", "health_bar")]
 layout_mode = 3

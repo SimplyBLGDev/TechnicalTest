@@ -5,10 +5,12 @@ extends Character_State
 func on_enter(_from: StateMachine_State):
 	character.animation_player.play(animation)
 	character.controller.attacked.connect(_on_attacked)
+	character.dust_emitter.start_emitting()
 
 
 func on_exit(_to: StateMachine_State):
 	character.controller.attacked.disconnect(_on_attacked)
+	character.dust_emitter.stop_emitting()
 
 
 func _on_attacked():

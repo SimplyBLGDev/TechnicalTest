@@ -25,12 +25,16 @@ func _on_vision_cone_body_entered(body: Node2D) -> void:
 		return # We are already targeting someone
 	
 	alert()
-	ai.blackboard.set_var(targeted_enemy_blackboard_var_name, body)
-	body.died.connect(_on_targeted_enemy_died)
 
 
 func _on_targeted_enemy_died():
 	ai.blackboard.set_var(targeted_enemy_blackboard_var_name, null)
+
+
+func _on_hurtbox_got_hit(_damage: int, _hit_position: Vector2, hurt_by: Hitbox) -> void:
+	if hurt_by.owner is Character:
+		alert()
+		target_enemy(hurt_by.owner)
 
 
 func alert():
@@ -39,3 +43,8 @@ func alert():
 	character.add_sibling(alert_fx)
 	alert_fx.global_position = character.head_position.global_position
 	vision_cone.hide()
+
+
+func target_enemy(enemy: Character):
+	ai.blackboard.set_var(targeted_enemy_blackboard_var_name, enemy)
+	enemy.died.connect(_on_targeted_enemy_died)
