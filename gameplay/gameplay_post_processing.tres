@@ -15,5 +15,6 @@ void fragment() {
 "
 
 [resource]
+resource_local_to_scene = true
 shader = SubResource("Shader_r5as3")
 shader_parameter/desaturation = 0.0

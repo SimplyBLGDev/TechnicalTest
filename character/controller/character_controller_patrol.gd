@@ -47,5 +47,6 @@ func alert():
 
 
 func target_enemy(enemy: Character):
-	ai.blackboard.set_var(targeted_enemy_blackboard_var_name, enemy)
-	enemy.died.connect(_on_targeted_enemy_died)
+	if ai.blackboard.get_var(targeted_enemy_blackboard_var_name) != enemy:
+		ai.blackboard.set_var(targeted_enemy_blackboard_var_name, enemy)
+		enemy.died.connect(_on_targeted_enemy_died)
