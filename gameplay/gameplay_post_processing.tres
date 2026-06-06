@@ -1,0 +1,19 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://ddq518phup5bd"]
+
+[sub_resource type="Shader" id="Shader_r5as3"]
+code = "shader_type canvas_item;
+render_mode blend_mix;
+
+uniform sampler2D screen_texture: hint_screen_texture;
+uniform float desaturation: hint_range(0.0, 1.0);
+
+void fragment() {
+	vec3 screen_color = texture(screen_texture, SCREEN_UV).rgb;
+	float avg_color = (screen_color.r + screen_color.g + screen_color.b) / 3.0;
+	COLOR.rgb = mix(screen_color, vec3(avg_color), desaturation);
+}
+"
+
+[resource]
+shader = SubResource("Shader_r5as3")
+shader_parameter/desaturation = 0.0

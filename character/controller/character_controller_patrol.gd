@@ -25,6 +25,7 @@ func _on_vision_cone_body_entered(body: Node2D) -> void:
 		return # We are already targeting someone
 	
 	alert()
+	target_enemy(body)
 
 
 func _on_targeted_enemy_died():

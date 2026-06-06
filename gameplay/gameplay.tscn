@@ -8,6 +8,8 @@
 [ext_resource type="Resource" uid="uid://b61heonha1aiy" path="res://input/general/input_general.tres" id="4_yvprt"]
 [ext_resource type="PackedScene" uid="uid://bxl30b7s31vi3" path="res://warrior/enemy_warrior.tscn" id="5_gvicd"]
 [ext_resource type="Resource" uid="uid://d1douy8gs5wdn" path="res://input/general/input_general_restart.tres" id="5_yvprt"]
+[ext_resource type="Script" uid="uid://bwvo5uojhcln2" path="res://gameplay/gameplay_camera.gd" id="6_r5as3"]
+[ext_resource type="Material" uid="uid://ddq518phup5bd" path="res://gameplay/gameplay_post_processing.tres" id="10_nimes"]
 
 [node name="Gameplay" type="Node2D" unique_id=104695684]
 y_sort_enabled = true
@@ -15,7 +17,9 @@ script = ExtResource("1_41n4r")
 default_mapping_contexts = Array[ExtResource("2_uk44f")]([ExtResource("2_ueusv"), ExtResource("4_yvprt")])
 restart = ExtResource("5_yvprt")
 
-[node name="Camera2D" type="Camera2D" parent="." unique_id=119364344]
+[node name="Camera" type="Camera2D" parent="." unique_id=119364344]
+script = ExtResource("6_r5as3")
+post_processing = ExtResource("10_nimes")
 
 [node name="Ground Floor" type="TileMapLayer" parent="." unique_id=2019284849]
 z_index = -1
@@ -33,10 +37,12 @@ tile_map_data = PackedByteArray("AAACAP//AQAAAAQAAAACAAAAAQAAAAUAAAA=")
 tile_set = ExtResource("3_ktb3l")
 
 [node name="PlayerWarrior" parent="." unique_id=1514386675 instance=ExtResource("4_ktb3l")]
+z_index = 0
 position = Vector2(-500, -200)
 motion_mode = 0
 
 [node name="EnemyWarrior" parent="." unique_id=1652543362 instance=ExtResource("5_gvicd")]
+z_index = 0
 position = Vector2(399, -247)
 
 [node name="PatrolPoints" type="Node2D" parent="." unique_id=201766196]
@@ -79,3 +85,14 @@ text = "[color=black]WASD - Move
 Space - Attack
 R - Restart[/color]"
 fit_content = true
+
+[node name="PostProcessing" type="ColorRect" parent="CanvasLayer" unique_id=1481326171]
+material = ExtResource("10_nimes")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[connection signal="died" from="PlayerWarrior" to="Camera" method="fade_to_bw"]
+[connection signal="hurt" from="PlayerWarrior" to="Camera" method="shake"]
