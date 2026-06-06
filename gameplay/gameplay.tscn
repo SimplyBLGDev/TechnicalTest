@@ -2,14 +2,20 @@
 
 [ext_resource type="Script" uid="uid://bvtvws7rymnum" path="res://gameplay/gameplay.gd" id="1_41n4r"]
 [ext_resource type="Resource" uid="uid://uvxa1mmda8o5" path="res://input/player/input_player.tres" id="2_ueusv"]
+[ext_resource type="Script" uid="uid://dsa1dnifd6w32" path="res://addons/guide/guide_mapping_context.gd" id="2_uk44f"]
 [ext_resource type="TileSet" uid="uid://cqb8cd14pwcl1" path="res://overworld/overworld_tileset.tres" id="3_ktb3l"]
-[ext_resource type="PackedScene" uid="uid://mjxvegmpqvs5" path="res://player_warrior.tscn" id="4_ktb3l"]
-[ext_resource type="PackedScene" uid="uid://bxl30b7s31vi3" path="res://enemy_warrior.tscn" id="5_gvicd"]
+[ext_resource type="PackedScene" uid="uid://mjxvegmpqvs5" path="res://warrior/player_warrior.tscn" id="4_ktb3l"]
+[ext_resource type="Resource" uid="uid://b61heonha1aiy" path="res://input/general/input_general.tres" id="4_yvprt"]
+[ext_resource type="PackedScene" uid="uid://bxl30b7s31vi3" path="res://warrior/enemy_warrior.tscn" id="5_gvicd"]
+[ext_resource type="Resource" uid="uid://d1douy8gs5wdn" path="res://input/general/input_general_restart.tres" id="5_yvprt"]
 
 [node name="Gameplay" type="Node2D" unique_id=104695684]
 y_sort_enabled = true
 script = ExtResource("1_41n4r")
-default_mapping_context = ExtResource("2_ueusv")
+default_mapping_contexts = Array[ExtResource("2_uk44f")]([ExtResource("2_ueusv"), ExtResource("4_yvprt")])
+restart = ExtResource("5_yvprt")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=119364344]
 
 [node name="Ground Floor" type="TileMapLayer" parent="." unique_id=2019284849]
 z_index = -1
@@ -27,9 +33,8 @@ tile_map_data = PackedByteArray("AAACAP//AQAAAAQAAAACAAAAAQAAAAUAAAA=")
 tile_set = ExtResource("3_ktb3l")
 
 [node name="PlayerWarrior" parent="." unique_id=1514386675 instance=ExtResource("4_ktb3l")]
-position = Vector2(-501, -239)
-
-[node name="Camera2D" type="Camera2D" parent="." unique_id=119364344]
+position = Vector2(-500, -200)
+motion_mode = 0
 
 [node name="EnemyWarrior" parent="." unique_id=1652543362 instance=ExtResource("5_gvicd")]
 position = Vector2(399, -247)
@@ -56,12 +61,21 @@ position = Vector2(25, 175)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1602306218]
 
-[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer" unique_id=1826088063]
-anchors_preset = 10
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer" unique_id=726184781]
+anchors_preset = 15
 anchor_right = 1.0
-offset_bottom = 23.0
+anchor_bottom = 1.0
 grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="Instructions" type="RichTextLabel" parent="CanvasLayer/MarginContainer" unique_id=1826088063]
+layout_mode = 2
 bbcode_enabled = true
-text = "WASD - Move
-"
+text = "[color=black]WASD - Move
+Space - Attack[/color]
+R - Restart"
 fit_content = true

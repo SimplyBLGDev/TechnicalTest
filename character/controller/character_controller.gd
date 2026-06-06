@@ -2,6 +2,7 @@
 class_name Character_Controller
 extends Node
 
-signal attacked
+@warning_ignore("unused_signal")
+signal attacked # Signal is emitted by concrete implementations of the controller
 
 var move_direction := Vector2.ZERO

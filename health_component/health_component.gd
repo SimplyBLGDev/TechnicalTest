@@ -19,3 +19,7 @@ func receive_damage(amount: int):
 	if health <= 0:
 		health_depleted.emit()
 		health = 0
+
+
+func is_depleted() -> bool:
+	return health <= 0

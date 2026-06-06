@@ -1,0 +1,66 @@
+[gd_scene format=3 uid="uid://nufllmhda6ts"]
+
+[ext_resource type="Script" uid="uid://dohqwrnc6ptr8" path="res://general_fx/alert/fx_alert.gd" id="1_3j3cd"]
+[ext_resource type="Texture2D" uid="uid://calt1dip6yln2" path="res://general_fx/alert/fx_alert.png" id="2_sifhj"]
+
+[sub_resource type="Animation" id="Animation_3d0hq"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -80)]
+}
+
+[sub_resource type="Animation" id="Animation_sjgqq"]
+resource_name = "default"
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, -80), Vector2(0, -120), Vector2(0, -80), Vector2(0, -90), Vector2(0, -80)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"queue_free"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ogmuc"]
+_data = {
+&"RESET": SubResource("Animation_3d0hq"),
+&"default": SubResource("Animation_sjgqq")
+}
+
+[node name="Alert" type="Node2D" unique_id=1766426443]
+script = ExtResource("1_3j3cd")
+
+[node name="Sprite" type="Sprite2D" parent="." unique_id=349867071]
+position = Vector2(0, -80)
+texture = ExtResource("2_sifhj")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1100335195]
+libraries/ = SubResource("AnimationLibrary_ogmuc")
+autoplay = &"default"

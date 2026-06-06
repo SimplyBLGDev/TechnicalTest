@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://dfmvl01oltixv"]
+
+[ext_resource type="Script" uid="uid://ds2ed6f4nj8un" path="res://general_fx/damage_numbers/fx_damage_numbers.gd" id="1_bhkma"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_mbhnd"]
+font_color = Color(0.63, 0.100800015, 0.10961986, 1)
+outline_size = 8
+
+[node name="DamageNumbers" type="Node2D" unique_id=2144638386 node_paths=PackedStringArray("label")]
+z_index = 1
+script = ExtResource("1_bhkma")
+label = NodePath("Label")
+
+[node name="Label" type="Label" parent="." unique_id=543157854]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -5.0
+offset_top = -11.5
+offset_right = 5.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "2"
+label_settings = SubResource("LabelSettings_mbhnd")
+horizontal_alignment = 1
+vertical_alignment = 1

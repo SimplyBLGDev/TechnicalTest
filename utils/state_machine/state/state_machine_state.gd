@@ -34,6 +34,16 @@ func on_outbound_transition(_to: StateMachine_State):
 	pass
 
 
+func _on_enter_state(from: StateMachine_State):
+	on_enter(from)
+	on_enter_state.emit()
+
+
+func _on_exit_state(to: StateMachine_State):
+	on_exit(to)
+	on_exit_state.emit()
+
+
 func change_state(to: StateMachine_State):
 	if is_instance_valid(state_machine):
 		state_machine.change_state(to)

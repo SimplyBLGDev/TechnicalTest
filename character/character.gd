@@ -15,6 +15,7 @@ signal died
 @export var health_component: HealthComponent
 @export var hurtbox: Hurtbox
 @export var hud: Character_HUD
+@export var head_position: Node2D
 
 var facing_left:
 	set(value):
@@ -36,12 +37,22 @@ func spawn_hitbox(hitbox_scene: PackedScene, duration: float):
 
 
 func _on_hurtbox_got_hit(damage: int, hit_position: Vector2) -> void:
-	health_component.receive_damage(damage)
 	var hurt_state: Character_State_Hurt = state_machine.get_state(Character_State.HURT)
 	hurt_state.hit_position = hit_position
+	hurt_state.damage = damage
 	hurt.emit()
+	health_component.receive_damage(damage)
 
 
 func _on_health_component_health_depleted() -> void:
 	state_machine.change_state_name(Character_State.DEAD)
 	died.emit()
+
+
+func _disable_collisions():
+	collision_mask &= 0
+	collision_layer &= 0
+
+
+func is_dead() -> bool:
+	return health_component.is_depleted()

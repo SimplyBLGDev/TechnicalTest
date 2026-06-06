@@ -57,8 +57,7 @@ func change_state(to: StateMachine_State):
 func enter_state(state: StateMachine_State, from: StateMachine_State = null):
 	set_state_process(state, true)
 	current_state = state
-	state.on_enter(from)
-	state.on_enter_state.emit()
+	state._on_enter_state(from)
 
 
 func set_state_process(state: StateMachine_State, process: bool):
@@ -68,8 +67,7 @@ func set_state_process(state: StateMachine_State, process: bool):
 
 func exit_state(state: StateMachine_State, to: StateMachine_State):
 	set_state_process(state, false)
-	state.on_exit(to)
-	state.on_exit_state.emit()
+	state._on_exit_state(to)
 
 
 func change_state_name(state_name: StringName):
