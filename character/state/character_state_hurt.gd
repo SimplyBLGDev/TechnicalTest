@@ -1,13 +1,20 @@
 class_name Character_State_Hurt
 extends Character_State
 
+var hit_position := Vector2.ZERO
+var knockback_duration_left := 0.0
+
 func on_enter(_from: StateMachine_State):
-	character.velocity = Vector2.RIGHT if character.facing_left else Vector2.LEFT
+	# Apply knockback
+	character.velocity = Vector2.LEFT if hit_position.x > 0.0 else Vector2.RIGHT
 	character.velocity *= character.parameters.knockback_speed
 	character.sprite.hurt_flash(character.parameters.hit_flash_intensity, character.parameters.hit_flash_duration)
-	await get_tree().create_timer(character.parameters.knockback_duration).timeout
-	change_state_name(IDLE)
+	
+	knockback_duration_left = character.parameters.knockback_duration
 
 
-func on_physics_process(_delta: float) -> void:
+func on_physics_process(delta: float) -> void:
 	character.move_and_slide()
+	knockback_duration_left -= delta
+	if knockback_duration_left <= 0.0:
+		change_state_name(IDLE)

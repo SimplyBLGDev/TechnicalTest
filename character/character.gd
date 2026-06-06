@@ -1,6 +1,8 @@
 class_name Character
 extends CharacterBody2D
 
+signal hurt
+signal flipped_horizontally(is_flipped: bool)
 signal died
 
 @export var parameters: Character_Parameters
@@ -11,10 +13,13 @@ signal died
 @export var sprite: Character_Sprite
 @export var animation_player: AnimationPlayer
 @export var health_component: HealthComponent
+@export var hurtbox: Hurtbox
 @export var hud: Character_HUD
 
 var facing_left:
 	set(value):
+		if value != sprite.flip_h:
+			flipped_horizontally.emit(value)
 		sprite.flip_h = value
 	get:
 		return sprite.flip_h
@@ -30,20 +35,13 @@ func spawn_hitbox(hitbox_scene: PackedScene, duration: float):
 	instance.queue_free()
 
 
-func _on_hurtbox_got_hit(damage: int) -> void:
+func _on_hurtbox_got_hit(damage: int, hit_position: Vector2) -> void:
 	health_component.receive_damage(damage)
 	var hurt_state: Character_State_Hurt = state_machine.get_state(Character_State.HURT)
-	state_machine.change_state(hurt_state)
+	hurt_state.hit_position = hit_position
+	hurt.emit()
 
 
 func _on_health_component_health_depleted() -> void:
 	state_machine.change_state_name(Character_State.DEAD)
 	died.emit()
-
-
-func _on_vision_cone_body_entered(character: Node2D) -> void:
-	print("enter")
-
-
-func _on_vision_cone_body_exited(body: Node2D) -> void:
-	print("exit")

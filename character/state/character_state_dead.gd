@@ -14,3 +14,7 @@ func on_enter(_from: StateMachine_State):
 	character.hud.hide()
 	
 	character.velocity = Vector2.ZERO
+
+
+func on_exit(_to: StateMachine_State):
+	print(_to.name)

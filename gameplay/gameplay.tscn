@@ -18,7 +18,7 @@ tile_set = ExtResource("3_ktb3l")
 
 [node name="High Ground" type="TileMapLayer" parent="." unique_id=718876439]
 z_index = -1
-tile_map_data = PackedByteArray("AAABAP//AQAFAAQAAAACAP//AQAGAAQAAQADAP//AQAGAAIAAAAEAP//AQAGAAIAAAAFAP//AQAGAAIAAAAGAP//AQAHAAIAAAAGAP7/AQAHAAEAAAAGAP3/AQAHAAEAAAAGAPz/AQAHAAEAAAAGAPv/AQAHAAAAAAAFAP7/AQAGAAEAAAAFAP3/AQAGAAEAAAAFAPz/AQAGAAEAAAAFAPv/AQAGAAAAAAAEAP7/AQAGAAEAAAAEAP3/AQAGAAEAAAAEAPz/AQAGAAEAAAAEAPv/AQAGAAAAAAADAP7/AQAGAAEAAAADAP3/AQAGAAEAAAADAPz/AQAGAAEAAAADAPv/AQAGAAAAAAACAP7/AQAGAAIAAAACAP3/AQAGAAEAAAACAPz/AQAGAAEAAAACAPv/AQAGAAAAAAABAP7/AQAFAAIAAAABAP3/AQAFAAEAAAABAPz/AQAFAAEAAAABAPv/AQAFAAAAAAADAAAAAQAGAAQAAAAEAAAAAQAGAAQAAAAFAAAAAQAGAAQAAAAGAAAAAQAHAAQAAAA=")
+tile_map_data = PackedByteArray("AAABAP//AQAFAAQAAAACAP//AQAGAAQAAQADAP//AQAGAAIAAAAEAP//AQAGAAIAAAAFAP//AQAGAAIAAAAGAP//AQAHAAIAAAAGAP7/AQAHAAEAAAAGAP3/AQAHAAEAAAAGAPz/AQAHAAEAAAAGAPv/AQAHAAAAAAAFAP7/AQAGAAEAAAAFAP3/AQAGAAEAAAAFAPz/AQAGAAEAAAAFAPv/AQAGAAAAAAAEAP7/AQAGAAEAAAAEAP3/AQAGAAEAAAAEAPz/AQAGAAEAAAAEAPv/AQAGAAAAAAADAP7/AQAGAAEAAAADAP3/AQAGAAEAAAADAPz/AQAGAAEAAAADAPv/AQAGAAAAAAACAP7/AQAGAAIAAQACAP3/AQAGAAEAAAACAPz/AQAGAAEAAAACAPv/AQAGAAAAAAABAP7/AQAFAAIAAAABAP3/AQAFAAEAAAABAPz/AQAFAAEAAAABAPv/AQAFAAAAAAADAAAAAQAGAAQAAAAEAAAAAQAGAAQAAAAFAAAAAQAGAAQAAAAGAAAAAQAHAAQAAAA=")
 tile_set = ExtResource("3_ktb3l")
 
 [node name="Stairs" type="TileMapLayer" parent="." unique_id=550925581]
@@ -31,20 +31,8 @@ position = Vector2(-501, -239)
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=119364344]
 
-[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1602306218]
-
-[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer" unique_id=1826088063]
-anchors_preset = 10
-anchor_right = 1.0
-offset_bottom = 23.0
-grow_horizontal = 2
-bbcode_enabled = true
-text = "WASD - Move
-"
-fit_content = true
-
 [node name="EnemyWarrior" parent="." unique_id=1652543362 instance=ExtResource("5_gvicd")]
-position = Vector2(121, -287)
+position = Vector2(399, -247)
 
 [node name="PatrolPoints" type="Node2D" parent="." unique_id=201766196]
 
@@ -65,3 +53,15 @@ position = Vector2(483, 254)
 
 [node name="PatrolPoint6" type="Node2D" parent="PatrolPoints" unique_id=234746457 groups=["PatrolPoint"]]
 position = Vector2(25, 175)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1602306218]
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer" unique_id=1826088063]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 23.0
+grow_horizontal = 2
+bbcode_enabled = true
+text = "WASD - Move
+"
+fit_content = true
